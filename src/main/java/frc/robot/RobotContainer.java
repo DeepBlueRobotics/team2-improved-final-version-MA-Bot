@@ -27,6 +27,12 @@ public class RobotContainer {
     new JoystickButton(controller, Button.kX.value).onTrue(new InstantCommand(drivetrain::switchDriveModes));
     
   }
+  public double getRightJoystickValue() {
+    return controller.getRightX();
+  }
+  public double getLeftJoystickValue() {
+    return controller.getLeftY();
+  }
   public Command getAutonomousCommand() {
     return new AutoDrive(drivetrain);
   }

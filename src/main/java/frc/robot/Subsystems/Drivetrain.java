@@ -10,19 +10,22 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase{
     private boolean isTank = false;
-    private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(0, MotorConfig.NEO);
-    private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(0, MotorConfig.NEO);
+    private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.leftMotor, MotorConfig.NEO);
+    private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.rightMotor, MotorConfig.NEO);
     private double speedSlower = 0.5;
     private RelativeEncoder leftEncoder = leftMotor.getEncoder();
+    private final RobotContainer robotContainer = new RobotContainer();
     public Drivetrain() {
         
     }
     @Override
     public void periodic() {
-
+        drive(robotContainer.getLeftJoystickValue(), robotContainer.getRightJoystickValue());
     }
     public void switchDriveModes() {
         isTank = !isTank;

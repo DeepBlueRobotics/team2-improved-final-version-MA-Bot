@@ -16,8 +16,10 @@ public final class Constants {
     public static final int controllerPort = 0;
     public static final int WHEEL_RADIUS = 2;
     public static class Drivetrain { 
-        public static final int leftMotor = 0;
-        public static final int rightMotor = 1;
+        public static final int leftMotor = 3;
+        public static final int rightMotor = 7;
     }
-    
+    public static class Shooter{ 
+
+    }
 }
