@@ -25,6 +25,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     new JoystickButton(controller, Button.kX.value).onTrue(new InstantCommand(drivetrain::switchDriveModes));
+    new JoystickButton(controller, Button.kA.value).onTrue(new InstantCommand(drivetrain::switchSpeed));
     
   }
   public double getRightJoystickValue() {
