@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,33 +16,45 @@ import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase{
     private boolean isTank = false;
-    private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.leftMotor, MotorConfig.NEO);
-    private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.rightMotor, MotorConfig.NEO);
+    private boolean isAuto = false;
+    private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.LEFT_MOTOR_PORT, MotorConfig.NEO);
+    private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(Constants.Drivetrain.RIGHT_MOTOR_PORT, MotorConfig.NEO);
+    private final XboxController controller;
     private double speedSlower = 0.5;
     private RelativeEncoder leftEncoder = leftMotor.getEncoder();
-    private final RobotContainer robotContainer = new RobotContainer();
-    public Drivetrain() {
-        
+    public Drivetrain(XboxController controller) {
+        this.controller = controller;
     }
     @Override
     public void periodic() {
-        drive(robotContainer.getLeftJoystickValue(), robotContainer.getRightJoystickValue());
+        if(isAuto) {
+            return;
+        }
+        drive(controller.getLeftY(), controller.getRightX());
     }
     public void switchDriveModes() {
         isTank = !isTank;
     }
+    public void setAuto(boolean isAutonomous) {
+        isAuto = isAutonomous;
+    }
     public void drive(double leftJoyStick, double rightJoyStick) {
         if(isTank) {
-            leftMotor.set(leftJoyStick*speedSlower);
-            rightMotor.set(rightJoyStick*speedSlower);
+            leftMotor.set(leftJoyStick);
+            rightMotor.set(controller.getRightY());
         } else {
             double left = leftJoyStick + rightJoyStick;
             double right = leftJoyStick - rightJoyStick;
 
-            leftMotor.set(left*speedSlower);
-            rightMotor.set(right*speedSlower);
+            leftMotor.set(left);
+            rightMotor.set(right);
         }
 
+        
+    }
+    public void autoDrive() {
+        leftMotor.set(0.2);
+        rightMotor.set(0.2);
     }
     public double leftPosition() {
         return leftEncoder.getPosition();

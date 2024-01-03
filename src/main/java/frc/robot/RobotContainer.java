@@ -15,9 +15,9 @@ import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Commands.AutoDrive;
 
 public class RobotContainer {
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final XboxController controller = new XboxController(Constants.controllerPort);
   
+  private final XboxController controller = new XboxController(Constants.CONTROLLER_PORT);
+  private final Drivetrain drivetrain = new Drivetrain(controller);
 
   public RobotContainer() {
     configureBindings();
@@ -34,6 +34,7 @@ public class RobotContainer {
     return controller.getLeftY();
   }
   public Command getAutonomousCommand() {
+    drivetrain.setAuto(true);
     return new AutoDrive(drivetrain);
   }
 }

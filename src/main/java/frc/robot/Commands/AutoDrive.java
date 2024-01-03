@@ -12,13 +12,14 @@ public class AutoDrive extends CommandBase{
     }
     @Override
     public void initialize() {
-        drivetrain.switchDriveModes();
-        drivetrain.drive(0.2, 0.2);
+        drivetrain.setAuto(true);
+        drivetrain.autoDrive();
+
     }
     @Override
     public void end(boolean interrupted) {
         drivetrain.drive(0, 0);
-        drivetrain.switchDriveModes();
+        drivetrain.setAuto(false);
     }
     @Override
     public boolean isFinished() {
