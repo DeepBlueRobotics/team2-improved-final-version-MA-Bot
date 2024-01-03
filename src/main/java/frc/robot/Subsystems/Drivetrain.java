@@ -15,6 +15,7 @@ public class Drivetrain extends SubsystemBase{
     private boolean isTank = false;
     private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(0, MotorConfig.NEO);
     private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(0, MotorConfig.NEO);
+    private double speedSlower = 0.5;
     private RelativeEncoder leftEncoder = leftMotor.getEncoder();
     public Drivetrain() {
         
@@ -24,18 +25,18 @@ public class Drivetrain extends SubsystemBase{
 
     }
     public void switchDriveModes() {
-        isTank = isTank!;
+        isTank = !isTank;
     }
     public void drive(double leftJoyStick, double rightJoyStick) {
         if(isTank) {
-            leftMotor.set(leftJoyStick);
-            rightMotor.set(rightJoyStick);
+            leftMotor.set(leftJoyStick*speedSlower);
+            rightMotor.set(rightJoyStick*speedSlower);
         } else {
             double left = leftJoyStick + rightJoyStick;
             double right = leftJoyStick - rightJoyStick;
 
-            leftMotor.set(left);
-            rightMotor.set(right);
+            leftMotor.set(left*speedSlower);
+            rightMotor.set(right*speedSlower);
         }
 
     }
