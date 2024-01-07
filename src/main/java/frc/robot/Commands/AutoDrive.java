@@ -23,6 +23,6 @@ public class AutoDrive extends CommandBase{
     }
     @Override
     public boolean isFinished() {
-        return drivetrain.leftPosition() * (Constants.WHEEL_RADIUS*2) >= 10;
+        return drivetrain.leftPosition() * (Constants.WHEEL_RADIUS*2) >= (Constants.Drivetrain.GOAL_FEET)/12;
     }
 }

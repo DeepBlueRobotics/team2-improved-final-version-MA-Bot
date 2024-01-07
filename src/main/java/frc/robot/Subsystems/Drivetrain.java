@@ -33,7 +33,9 @@ public class Drivetrain extends SubsystemBase{
         }
         drive(controller.getLeftY(), controller.getRightX());
     }
-
+    public boolean returnTank() {
+        return isTank;
+    }
     public void switchDriveModes() {
         isTank = !isTank;
     }
@@ -41,6 +43,7 @@ public class Drivetrain extends SubsystemBase{
     public void setAuto(boolean isAutonomous) {
         isAuto = isAutonomous;
     }
+    
     public void switchSpeed() {
         speedTick+=1;
         if(speedTick == 4) {

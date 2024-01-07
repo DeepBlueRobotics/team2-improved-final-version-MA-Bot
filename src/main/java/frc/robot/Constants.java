@@ -19,6 +19,7 @@ public final class Constants {
         public static final int LEFT_MOTOR_PORT = 3;
         public static final int RIGHT_MOTOR_PORT = 7;
         public static final double AUTO_SPEED = 0.2;
+        public static final double GOAL_FEET = 7;
     }
     public static class Shooter{ 
 

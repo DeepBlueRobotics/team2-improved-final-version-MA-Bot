@@ -28,6 +28,11 @@ public class RobotContainer {
     new JoystickButton(controller, Button.kA.value).onTrue(new InstantCommand(drivetrain::switchSpeed));
     
   }
+  public void drive() {
+    if(!drivetrain.returnTank()) {
+      drivetrain.drive(controller.getLeftY(), controller.getRightX());
+    }
+  }
   public double getRightJoystickValue() {
     return controller.getRightX();
   }
